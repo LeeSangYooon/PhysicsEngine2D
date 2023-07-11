@@ -1,6 +1,6 @@
-from core.Objects.PhysicalObject import PhysicalObject
+from core.DynamicObjects.PhysicalObject import PhysicalObject
 from core.Vector2 import Vector2
-from core.Objects.ObjectSetting import ObjectSetting
+from core.DynamicObjects.ObjectSetting import ObjectSetting
 from typing import Final
 
 

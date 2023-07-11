@@ -1,6 +1,6 @@
 from core.Vector2 import Vector2
 from typing import List, Final
-from core.Objects.ObjectSetting import ObjectSetting
+from core.DynamicObjects.ObjectSetting import ObjectSetting
 
 
 class PhysicalObject:

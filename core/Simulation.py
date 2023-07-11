@@ -1,5 +1,5 @@
 from core.World import World
-from core.Objects.PhysicalObject import PhysicalObject
+from core.DynamicObjects.PhysicalObject import PhysicalObject
 from time import time
 from typing import Callable
 from math import inf as INF

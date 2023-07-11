@@ -1,4 +1,4 @@
-from core.Objects.PhysicalObject import PhysicalObject
+from core.DynamicObjects.PhysicalObject import PhysicalObject
 from core.Vector2 import Vector2
 from typing import List
 

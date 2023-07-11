@@ -2,24 +2,24 @@ import pygame
 import sys
 from core.Simulation import Simulation
 from core.World import World
-from core.Objects.Circle import Circle
+from core.DynamicObjects.Circle import Circle
 from core.Vector2 import Vector2
 from gui.Color import *
 
 
 simulation = Simulation()
-simulation.add_object(Circle(mass=100, radius=0.3, position=Vector2(-2.5, 2.5)))
-simulation.add_object(Circle(mass=1, radius=0.3, position=Vector2(2.5, 2.5)))
-simulation.world.objects[1].velocity = Vector2.UP * 3
+simulation.add_object(Circle(mass=100, radius=1, position=Vector2(-5, 5)))
+simulation.add_object(Circle(mass=1, radius=1, position=Vector2(5, 5)))
+simulation.world.objects[1].velocity = Vector2.UP * 10
 
 camera = Vector2(0, 0)
-zoom = 160
+zoom = 40
 frames = 0
 
 
 pygame.init()
 
-canvas_size = Vector2(1600, 1200)
+canvas_size = Vector2(1000, 1000)
 screen = pygame.display.set_mode((canvas_size.x, canvas_size.y))
 pygame.display.set_caption("2D Physics Engine")
 
