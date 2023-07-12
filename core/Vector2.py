@@ -1,4 +1,4 @@
-from typing import Self, Final, List, Tuple
+from typing import Self, Final, List, Tuple, Iterable
 from math import sqrt
 
 
@@ -45,7 +45,7 @@ class Vector2:
         return f"Vector2 X: {self.x} Y: {self.y}"
 
     @staticmethod
-    def sum(force_list: List['Vector2']):
+    def sum(force_list: Iterable['Vector2']) -> Self:
         return sum(force_list, Vector2.ZERO)
 
 

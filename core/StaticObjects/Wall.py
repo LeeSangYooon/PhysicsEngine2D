@@ -4,7 +4,7 @@ from typing import Final
 
 # ax + by + c > 0
 class Wall:
-    def __init__(self, pivot: Vector2, direction: Vector2):
+    def __init__(self, pivot: Vector2, direction: Vector2, elastic_modulus: float):
         d = direction
         # d 의 오른쪽 방향 면이 벽이다.
         # 벽에 해당 하는 부등식
@@ -30,9 +30,19 @@ class Wall:
             self.c = pivot.x
         else:
             inclination = direction.y / direction.x
-            self.a = inclination
-            self.b = -1
-            self.c = -inclination * pivot.x + pivot.y
+            if d.x > 0:
+                # 아래 벽면
+                self.a = -inclination
+                self.b = +1
+                self.c = +inclination * pivot.x + pivot.y
+            else:
+                # 위 벽면
+                self.a = inclination
+                self.b = -1
+                self.c = -inclination * pivot.x + pivot.y
 
         self.pivot: Final = pivot
         self.direction: Final = d
+
+        self.elastic_modulus = elastic_modulus
+
