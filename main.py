@@ -1,4 +1,4 @@
 from core.Simulation import Simulation
+from gui.program import main
 
-simulation = Simulation()
-simulation.simulate_in_real_time(call_back=lambda x: print("HA"))
+main()
