@@ -4,27 +4,10 @@ from core.Simulation import Simulation
 from core.World import World
 from core.DynamicObjects.Circle import Circle
 from core.Vector2 import Vector2
+from core.DynamicObjects.ObjectSetting import ObjectSetting
 from gui.Color import *
+from examples.ClosedWorldSimulation import simulation
 
-
-simulation = Simulation()
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-10, 0)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-5, 0)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(0, 0)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(5, 0)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(10, 0.02)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-10, 5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-5, 5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(0, 5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(5, 5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(10, 5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-10, -5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(-5, -5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(0, -5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(5, -5)))
-simulation.add_object(Circle(mass=1, radius=1, position=Vector2(10, -5)))
-simulation.world.objects[4].velocity = Vector2.LEFT * 30
-simulation.world.gravity_scale = 0
 
 camera = Vector2(0, 0)
 zoom = 40
@@ -40,7 +23,7 @@ font = pygame.font.Font(None, 28)
 
 
 def display_text(text, x, y):
-    rendered_text = font.render(text, True, (255, 255, 255))  # Render the text with white color
+    rendered_text = font.render(text, True, (0, 0, 0))  # Render the text with white color
     screen.blit(rendered_text, (x, y))  # Blit the rendered text onto the screen at the specified position
 
 
@@ -55,8 +38,8 @@ def render_world(world: World):
             pygame.draw.circle(screen, obj.setting.color, display_position.to_integer_pair(), obj.radius * zoom)
     frames += 1
     display_text(f"#frame {frames}", 10, 10)
-    display_text(f"총 운동량: {world.total_momentum().magnitude()}", 10, 40)
-    display_text(f"총 운동 에너지: {world.total_kinematic_energy()}", 10, 70)
+    display_text(f"Total Momentum: {world.total_momentum().magnitude()}", 10, 40)
+    display_text(f"Total Kinematic Energy: {world.total_kinematic_energy()}", 10, 70)
 
 
 def update(world: World):

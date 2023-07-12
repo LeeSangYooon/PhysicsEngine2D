@@ -6,11 +6,15 @@ from typing import List, cast
 
 
 class World:
-    def __init__(self, gravity_scale=9.81):
+    def __init__(self, gravity_scale=9.81, ignore_layer: List[str] = None):
         self.time: float = 0
         self.objects: List[PhysicalObject] = list()
         self.static_objects: List[Wall] = list()
         self.gravity_scale = gravity_scale
+        if ignore_layer is None:
+            self.ignore_layer: List[str] = []
+        else:
+            self.ignore_layer = ignore_layer
 
     def total_momentum(self) -> Vector2:
         return Vector2.sum(map(lambda x: x.momentum(), self.objects))
@@ -20,8 +24,7 @@ class World:
 
     def remove_forces(self):
         for obj in self.objects:
-            if obj.setting.use_gravity:
-                obj.forces.clear()
+            obj.forces.clear()
 
     def apply_gravity(self):
         for obj in self.objects:
@@ -35,9 +38,12 @@ class World:
                 pass
 
         for i in range(len(self.objects)):
+            a = self.objects[i]
             for j in range(i+1, len(self.objects)):
-                a, b = self.objects[i], self.objects[j]
+                b = self.objects[j]
                 if isinstance(a, Circle) and isinstance(b, Circle):
+                    if a.setting.layer == b.setting.layer and a.setting.layer in self.ignore_layer:
+                        continue
                     a = cast(Circle, a)
                     b = cast(Circle, b)
                     distance = (b.position - a.position).magnitude()
@@ -60,6 +66,8 @@ class World:
 
         # calculate acceleration and position
         for obj in self.objects:
+            if obj.setting.static:
+                continue
             obj.velocity += obj.acceleration() * delta_time
             obj.position += obj.velocity * delta_time
 
