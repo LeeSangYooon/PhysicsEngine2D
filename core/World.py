@@ -44,14 +44,14 @@ class World:
                 if isinstance(a, Circle) and isinstance(b, Circle):
                     if a.setting.layer == b.setting.layer and a.setting.layer in self.ignore_layer:
                         continue
-                    a = cast(Circle, a)
-                    b = cast(Circle, b)
-                    distance = (b.position - a.position).magnitude()
-                    collided_distance = a.radius + b.radius - distance
-                    if collided_distance <= 0:
+                    a = cast(Circle, a)  # 물체 A
+                    b = cast(Circle, b)  # 물체 B
+                    distance = (b.position - a.position).magnitude()  # D (거리)
+                    collided_distance = a.radius + b.radius - distance  # RA + RB - D
+                    if collided_distance <= 0:  # 만약 닿은 거리가 0보다 작다면 닿지 않은 것이다.
                         continue
-                    elasticity = collided_distance * a.elastic_modulus + collided_distance * b.elastic_modulus
-                    a_force = (a.position - b.position).normalized() * elasticity
+                    elasticity = collided_distance * a.elastic_modulus + collided_distance * b.elastic_modulus  # (KA + KB) * (RA + RB - D)
+                    a_force = (a.position - b.position).normalized() * elasticity  # B가 A를 보는 방향
                     b_force = a_force * -1  # 작용 반작용
                     a.add_force(a_force)
                     b.add_force(b_force)
@@ -70,6 +70,7 @@ class World:
                 continue
             obj.velocity += obj.acceleration() * delta_time
             obj.position += obj.velocity * delta_time
+        self.time += delta_time
 
     def add_object(self, obj: PhysicalObject):
         self.objects.append(obj)

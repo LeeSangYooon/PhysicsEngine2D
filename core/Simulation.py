@@ -9,10 +9,13 @@ class Simulation:
     def __init__(self, world: World = World()):
         self.world = world
         self.time = 0
+        self.title = "Simulation"
+        self.description = ""
+        self.stop = False
 
     def simulate_in_real_time(self, time_limit=INF, call_back: Callable[[World], None] = None):
         self.time = time()
-        while self.time < time_limit:
+        while self.time < time_limit and not self.stop:
             now_time = time()
             delta_time = now_time - self.time
             self.time = now_time
@@ -24,7 +27,7 @@ class Simulation:
     def simulate_in_static_delta_time(self, delta_time: float, total_frame=INF,
                                       call_back: Callable[[World], None] = None) -> None:
         n = 0
-        while n < total_frame:
+        while n < total_frame and not self.stop:
             self.world.update(delta_time)
             if call_back is not None:
                 call_back(self.world)
