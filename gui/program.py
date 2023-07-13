@@ -5,7 +5,7 @@ from core.World import World
 from core.DynamicObjects.Circle import Circle
 from core.Vector2 import Vector2
 from gui.Color import *
-from examples.test import simulation
+from examples.ClosedWorldSimulation import simulation
 from copy import deepcopy
 from typing import List
 
