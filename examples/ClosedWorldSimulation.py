@@ -8,7 +8,7 @@ simulation = Simulation()
 for x, y in [(x, y) for x in range(-9, 8, 4) for y in range(-9, 8, 4)]:
     simulation.add_object(Circle(mass=1, radius=1, position=Vector2(x, y), elastic_modulus=1000))
 
-wall_obj_setting = ObjectSetting(layer="Wall", static=True)
+wall_obj_setting = ObjectSetting(layer="Wall", use_gravity=False)
 simulation.add_object(Circle(mass=1000000, radius=1000, elastic_modulus=10000, position=Vector2(-1011, 0), setting = wall_obj_setting))
 simulation.add_object(Circle(mass=1000000, radius=1000, elastic_modulus=10000, position=Vector2(0, -1011), setting = wall_obj_setting))
 simulation.add_object(Circle(mass=1000000, radius=1000, elastic_modulus=10000, position=Vector2(1011, 0), setting = wall_obj_setting))
